@@ -19,8 +19,8 @@ public class AlgoGraphMaker {
 		rs = ConnectionAlgoDB.getAlgorithm();
 		try {
 			while (rs.next()) {
-				if (!(rs.getString("ClassName")==null || rs.getString("ClassName").equals(""))){
-					aGraph.addNode2withInArgType(0, rs.getString("ClassName"), 0.0, true,rs.getString("InArgType"));
+				if (!(rs.getString("ClassName") == null || rs.getString("ClassName").equals(""))) {
+					aGraph.addNode2withInArgType(0, rs.getString("ClassName"), 0.0, true, rs.getString("InArgType"));
 				}
 			}
 		} catch (SQLException e) {
@@ -28,5 +28,4 @@ public class AlgoGraphMaker {
 		}
 		return aGraph;
 	}
-	
 }

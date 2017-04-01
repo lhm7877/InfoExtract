@@ -177,4 +177,5 @@ class Reference {
 	String type;
 	String text;
 	String labeledText;
+	String style;
 }
