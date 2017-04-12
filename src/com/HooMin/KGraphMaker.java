@@ -20,7 +20,8 @@ public class KGraphMaker {
 		kgraph.printGraph(kgraph);
 	}
 
-	public Graph2 init(Graph2 kgraph) {
+	public Graph2 init() {
+		Graph2 kgraph = new Graph2<>();
 		rs = ConnectionAlgoDB.getRdfs();
 		try {
 			while (rs.next()) {

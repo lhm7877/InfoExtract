@@ -7,13 +7,14 @@ import java.util.Stack;
 import addition.Computelli;
 import addition.Node2;
 import addition.Operator;
+import addition.Ref;
 import ke.Graph2;
 public class InfoExtractWithKE2 {
  
 	public InfoExtractWithKE2() {
 	}
 
-	public static void infoExtract(Reference aRef, CRFmodel aCRFmodel) {
+	public static void infoExtract(Ref aRef, CRFmodel aCRFmodel) {
 		// 새로운 클래스, 함수를 만들어 내는 함수
 		// evolution: 지식을 받아들여 스스로를 변형함
 		System.out.print("java -cp mallet.... 지금 함수infoExtract 실행 중");
@@ -26,11 +27,11 @@ public class InfoExtractWithKE2 {
 	public static void main(String[] args) {
 
 		// 일반적인 프로그래밍 방
-		Reference aRef = new Reference();
+		Ref aRef = new Ref();
 //		CRFmodel aCRFmodel = new CRFmodel();
 
-		aRef.text = "박성희, (2016), \"KE\", 정보관리학회, 33, (3), pp. 22-40 ";
-		aRef.type = "Ref"; // aRef의 타입이 "Ref"임을 안다면
+		aRef.setText("박성희, (2016), \"KE\", 정보관리학회, 33, (3), pp. 22-40 ");
+//		aRef.type = "Ref"; // aRef의 타입이 "Ref"임을 안다면
 
 		// InfoExtractWithKE2.infoExtract(aRef, aCRFmodel);
 
@@ -108,7 +109,7 @@ public class InfoExtractWithKE2 {
 		// open.clear();
 		InfoExtractWithKE2 infoExtractWithKE2 = new InfoExtractWithKE2();
 		
-		Graph2.pathFindingAStar(graph, fromNode2, endNode2,infoExtractWithKE2.makeAlgoGraph(),infoExtractWithKE2.makeKGraph());
+		Graph2.pathFindingAStar(aRef,graph, fromNode2, endNode2,infoExtractWithKE2.makeAlgoGraph(),infoExtractWithKE2.makeKGraph());
 		// System.out.print(endNode2.value);
 
 		// Graph2.pathFindingAStarWithEdge(graph, endNode2, fromNode2);
@@ -127,7 +128,7 @@ public class InfoExtractWithKE2 {
 		pathFindingAstarResult(nodeStack,aRef);
 	}
 	
-	public static void pathFindingAstarResult(Stack nodeStack, Reference aRef){
+	public static void pathFindingAstarResult(Stack nodeStack, Ref aRef){
 		Stack<Object> stack = new Stack<Object>();
 		double a = 0, b = 0, c = 0;
 		while(!nodeStack.isEmpty()){
@@ -144,7 +145,7 @@ public class InfoExtractWithKE2 {
 				System.out.println(temp.outEdge2.get(0).to_Node2.value);
 				// stack.push("3.0");
 				// stack.push("5.0");
-			 	temp.setOutput(aRef.text);
+			 	temp.setOutput(aRef.getText());
 			} else if (temp.value.equals("infoExtract")) {
 				System.out.println("************infoExtract************");
 				Operator operator = new Operator(temp.inEdge2, temp.outEdge2, temp);
@@ -161,21 +162,13 @@ public class InfoExtractWithKE2 {
 	}
 	public Graph2 makeAlgoGraph(){
 		AlgoGraphMaker algoGraphMaker = new AlgoGraphMaker();
-		Graph2 aGraph = new Graph2<>();
-		return algoGraphMaker.init(aGraph);
+		return algoGraphMaker.init();
 	}
 	
 	public Graph2 makeKGraph(){
 		KGraphMaker kGraphMaker = new KGraphMaker();
-		Graph2 aGraph = new Graph2<>();
-		return kGraphMaker.init(aGraph);		// 지식그래프를 만든다.
+		return kGraphMaker.init();		// 지식그래프를 만든다.
 	}
 }
 //class CRFmodel {
 //}
-class Reference {
-	String type;
-	String text;
-	String labeledText;
-	String style;
-}

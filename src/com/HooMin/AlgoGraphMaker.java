@@ -15,7 +15,8 @@ public class AlgoGraphMaker {
 		// aGraph.printGraph(aGraph);
 	}
 
-	public Graph2 init(Graph2 aGraph) {
+	public Graph2 init() {
+		Graph2 aGraph = new Graph2<>();
 		rs = ConnectionAlgoDB.getAlgorithm();
 		try {
 			while (rs.next()) {
