@@ -44,7 +44,7 @@ public class InfoExtractWithKE2 {
 		Graph2 graph = new Graph2();
 
 		graph.addNode2(0, "input", 1.0,false);
-		graph.addNode2(1, "infoExtract", 1.0,true);
+		graph.addNode2(1, "InfoExtract", 1.0,true);
 		graph.addNode2(2, "output", 1.0,false);
 		// 1번 방법
 		// graph.addTriple(0, "infoExtract", 1.0, graph.Node2List.get(0),
