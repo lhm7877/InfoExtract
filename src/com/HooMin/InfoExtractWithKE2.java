@@ -4,9 +4,8 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
-import addition.Computelli;
+import addition.ConnectionAlgoDB;
 import addition.Node2;
-import addition.Operator;
 import addition.Ref;
 import ke.Graph2;
 public class InfoExtractWithKE2 {
@@ -42,28 +41,31 @@ public class InfoExtractWithKE2 {
 		// Computelli.compute("infoExtract", 1, 2);
 
 		Graph2 graph = new Graph2();
+		graph.open = new PriorityQueue<Node2>(new Comparator() {
+			@Override
+			public int compare(Object o1, Object o2) {
+				Node2 c1 = (Node2) o1;
+				Node2 c2 = (Node2) o2;
 
-		graph.addNode2(0, "input", 1.0,false);
-		graph.addNode2(1, "InfoExtract", 1.0,true);
-		graph.addNode2(2, "output", 1.0,false);
-		// 1번 방법
-		// graph.addTriple(0, "infoExtract", 1.0, graph.Node2List.get(0),
-		// graph.Node2List.get(1), graph.Node2List.get(2));
+				return c1.fScore < c2.fScore ? -1 : c1.fScore > c2.fScore ? 1 : 0;
+			}
+		});
+		graph.addNode2(0, "inputNode", 1.0,false);
+		graph.addNode2(1, "input", 1.0,true);
+		graph.addNode2(2, "inArg", 1.0,false);
+		graph.addNode2(3, "InfoExtract", 1.0,true);
+		graph.addNode2(4, "outArg", 1.0,false);
+		graph.addNode2(5, "output", 1.0,true);
+		graph.addNode2(6, "outputNode", 1.0,false);
 
 		// 2번 방법
 		graph.addEdge2(0, "in", 1.0, (Node2)graph.Node2List.get(0), (Node2)graph.Node2List.get(1));
 		graph.addEdge2(1, "out", 1.0, (Node2)graph.Node2List.get(1), (Node2)graph.Node2List.get(2));
+		graph.addEdge2(2, "out", 1.0, (Node2)graph.Node2List.get(2), (Node2)graph.Node2List.get(3));
+		graph.addEdge2(3, "out", 999.0, (Node2)graph.Node2List.get(3), (Node2)graph.Node2List.get(4));
+		graph.addEdge2(4, "out", 1.0, (Node2)graph.Node2List.get(4), (Node2)graph.Node2List.get(5));
+		graph.addEdge2(5, "out", 1.0, (Node2)graph.Node2List.get(5), (Node2)graph.Node2List.get(6));
 
-		// graph2.addEdge2(0, "0번", 1.0, Node2List.get(0), Node2List.get(1));
-		// graph2.addEdge2(1, "1번", 1.0, Node2List.get(1), Node2List.get(2));
-		// graph2.addEdge2(2, "2번", 1.0, Node2List.get(0), Node2List.get(3));
-		// graph2.addEdge2(3, "3번", 1.0, Node2List.get(2), Node2List.get(3));
-		// graph2.addEdge2(4, "4번", 1.0, Node2List.get(2), Node2List.get(5));
-		// graph2.addEdge2(5, "5번", 1.0, Node2List.get(3), Node2List.get(4));
-		// graph2.addEdge2(6, "6번", 1.0, Node2List.get(4), Node2List.get(5));
-		// graph2.addEdge2(7, "7번", 1.0, Node2List.get(5), Node2List.get(6));
-		// graph2.addEdge2(8, "8번", 1.0, Node2List.get(5), Node2List.get(7));
-		// graph2.addEdge2(8, "9번", 1.0, Node2List.get(6), Node2List.get(7));
 
 		for (int i = 0; i < graph.Node2List.size(); i++) {
 			System.out.print(((Node2)graph.Node2List.get(i)).value + " 와 연결된 노드 : ");
@@ -81,17 +83,9 @@ public class InfoExtractWithKE2 {
 		}
 
 		Node2 fromNode2 = (Node2)graph.Node2List.get(0);
-		Node2 endNode2 = (Node2)graph.Node2List.get(2);
+		Node2 endNode2 = (Node2)graph.Node2List.get(6);
 
-		graph.open = new PriorityQueue<Node2>(new Comparator() {
-			@Override
-			public int compare(Object o1, Object o2) {
-				Node2 c1 = (Node2) o1;
-				Node2 c2 = (Node2) o2;
 
-				return c1.fScore < c2.fScore ? -1 : c1.fScore > c2.fScore ? 1 : 0;
-			}
-		});
 
 		// Graph2.pathFindingAStar(graph2, fromNode2, endNode2);
 		//
@@ -129,34 +123,17 @@ public class InfoExtractWithKE2 {
 	}
 	
 	public static void pathFindingAstarResult(Stack nodeStack, Ref aRef){
+		Stack<String> outputStack = new Stack<>();
+		outputStack.push("박성희, (2016), \"KE\", 정보관리학회, 33, (3), pp. 22-40 ");
+		addition.ConnectionAlgoDB connectionAlgoDB = new ConnectionAlgoDB();
 		Stack<Object> stack = new Stack<Object>();
 		double a = 0, b = 0, c = 0;
 		while(!nodeStack.isEmpty()){
 			Node2 temp = (Node2) nodeStack.pop();
 			System.out.print(" -> " + temp.value);
-			if (temp.value.equals("input")) { // 여기서 edge를 'in'이라하고 'in'함수를 실행해서 해당
-											// 변수에 값을 할당하는 작업을 하도록 해야 한다.
-											// 즉,set함수를 실행하도록 하는 셈이다.
-				// computelli에서 그래프를 만든다.temp와temp의 다음 노드를 넘겨준다.
-				// propertyOf에서 infoExtract_Styled를 만든다.
-				
-//				Node finalNode = kGraphMaker.travelNode(kGraphMaker.findNode(aRef.type));
-//				System.out.println("마지막 노드"+finalNode.value);
-				System.out.println(temp.outEdge2.get(0).to_Node2.value);
-				// stack.push("3.0");
-				// stack.push("5.0");
-			 	temp.setOutput(aRef.getText());
-			} else if (temp.value.equals("infoExtract")) {
-				System.out.println("************infoExtract************");
-				Operator operator = new Operator(temp.inEdge2, temp.outEdge2, temp);
-				c = Computelli.compute(temp.value, operator.getInputStack(),operator.getOutputStack());
-			} else if (temp.value == "output") {
-				System.out.println(a + temp.inEdge2.get(0).edge_Node2.value + b + " 는 " + c);
-
-			}
-			System.out.println(temp.value+"temp값****************");
-			if (temp.value.equals("ref")){
-				System.out.println("ref이라면");
+			if(temp.isOperator){
+				System.out.println("연산자노드");
+				outputStack.push(connectionAlgoDB.execute(temp.value, outputStack));	
 			}
 		}
 	}
