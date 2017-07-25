@@ -6,18 +6,17 @@ import java.util.Stack;
 
 import addition.ConnectionAlgoDB;
 import addition.Node2;
-import addition.Ref;
 import ke.Graph2;
 public class InfoExtractWithKE2 {
  
 	public InfoExtractWithKE2() {
 	}
 
-	public static void infoExtract(Ref aRef, CRFmodel aCRFmodel) {
-		// 새로운 클래스, 함수를 만들어 내는 함수
-		// evolution: 지식을 받아들여 스스로를 변형함
-		System.out.print("java -cp mallet.... 지금 함수infoExtract 실행 중");
-	}
+//	public static void infoExtract(Ref aRef, CRFmodel aCRFmodel) {
+//		// 새로운 클래스, 함수를 만들어 내는 함수
+//		// evolution: 지식을 받아들여 스스로를 변형함
+//		System.out.print("java -cp mallet.... 지금 함수infoExtract 실행 중");
+//	}
 
 	public void f() {
 		System.out.print("지금 f함수 실행 중");
@@ -26,10 +25,10 @@ public class InfoExtractWithKE2 {
 	public static void main(String[] args) {
 
 		// 일반적인 프로그래밍 방
-		Ref aRef = new Ref();
+//		Ref aRef = new Ref();
 //		CRFmodel aCRFmodel = new CRFmodel();
 
-		aRef.setText("박성희, (2016), \"KE\", 정보관리학회, 33, (3), pp. 22-40 ");
+//		aRef.setText("박성희, (2016), \"KE\", 정보관리학회, 33, (3), pp. 22-40 ");
 //		aRef.type = "Ref"; // aRef의 타입이 "Ref"임을 안다면
 
 		// InfoExtractWithKE2.infoExtract(aRef, aCRFmodel);
@@ -39,7 +38,6 @@ public class InfoExtractWithKE2 {
 		// 2. 그래프를 traverse하면서 진행한다.
 
 		// Computelli.compute("infoExtract", 1, 2);
-
 		Graph2 graph = new Graph2();
 		graph.open = new PriorityQueue<Node2>(new Comparator() {
 			@Override
@@ -103,7 +101,7 @@ public class InfoExtractWithKE2 {
 		// open.clear();
 		InfoExtractWithKE2 infoExtractWithKE2 = new InfoExtractWithKE2();
 		
-		Graph2.pathFindingAStar(aRef,graph, fromNode2, endNode2,infoExtractWithKE2.makeAlgoGraph(),infoExtractWithKE2.makeKGraph());
+		Graph2.pathFindingAStar("박성희, (2016), \"KE\", 정보관리학회, 33, (3), pp. 22-40 ",graph, fromNode2, endNode2,infoExtractWithKE2.makeAlgoGraph(),infoExtractWithKE2.makeKGraph());
 		// System.out.print(endNode2.value);
 
 		// Graph2.pathFindingAStarWithEdge(graph, endNode2, fromNode2);
@@ -119,10 +117,10 @@ public class InfoExtractWithKE2 {
 		
 		
 		
-		pathFindingAstarResult(nodeStack,aRef);
+		pathFindingAstarResult(nodeStack);
 	}
 	
-	public static void pathFindingAstarResult(Stack nodeStack, Ref aRef){
+	public static void pathFindingAstarResult(Stack nodeStack){
 		Stack<String> outputStack = new Stack<>();
 		outputStack.push("박성희, (2016), \"KE\", 정보관리학회, 33, (3), pp. 22-40 ");
 		addition.ConnectionAlgoDB connectionAlgoDB = new ConnectionAlgoDB();
