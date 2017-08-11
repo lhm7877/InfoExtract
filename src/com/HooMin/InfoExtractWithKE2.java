@@ -101,7 +101,7 @@ public class InfoExtractWithKE2 {
 		// open.clear();
 		InfoExtractWithKE2 infoExtractWithKE2 = new InfoExtractWithKE2();
 		
-		Graph2.pathFindingAStar("박성희, (2016), \"KE\", 정보관리학회, 33, (3), pp. 22-40 ",graph, fromNode2, endNode2,infoExtractWithKE2.makeAlgoGraph(),infoExtractWithKE2.makeKGraph());
+		Graph2.pathFindingAStar(null,graph, fromNode2, endNode2,infoExtractWithKE2.makeAlgoGraph(),infoExtractWithKE2.makeKGraph());
 		// System.out.print(endNode2.value);
 
 		// Graph2.pathFindingAStarWithEdge(graph, endNode2, fromNode2);
@@ -121,7 +121,7 @@ public class InfoExtractWithKE2 {
 	}
 	
 	public static void pathFindingAstarResult(Stack nodeStack){
-		Stack<String> outputStack = new Stack<>();
+		Stack<Object> outputStack = new Stack<>();
 		outputStack.push("박성희, (2016), \"KE\", 정보관리학회, 33, (3), pp. 22-40 ");
 		addition.ConnectionAlgoDB connectionAlgoDB = new ConnectionAlgoDB();
 		Stack<Object> stack = new Stack<Object>();
